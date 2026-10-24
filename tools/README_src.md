@@ -330,10 +330,20 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 - **Purpose:** a matched baseline for E10, run on the same splits with each repo's own recipe.
 - **Status:** cancelled after the smoke test, to focus on improving our own backbone.
 
-### E17: attention-pooling bottleneck *(running)*
+### E17: attention-pooling bottleneck
 - **Question:** each window's 1,952 tokens are reduced to one query vector per head. Does that limit the model?
-- **Variants:** the fusion is retrained with **1 / 4 / 8 pooling queries per head**, using v2_90's recipe with v1 encoders frozen.
-- **Selection:** development data only (LSVQ val10, DropDev, DropDev-hard). Results will be added here.
+- **Variants:** the fusion is retrained with **1 / 4 / 8 pooling queries per head**, using v2_90's recipe with v1 encoders frozen. Each head reads its queries concatenated.
+- **Selection:** development data only; paired bootstrap over sources, CIs in brackets.
+
+| Pooling queries per head | LSVQ val10 SROCC / PLCC | DropDev Q / V | DropDev-hard Q | DropDev-hard V |
+|---|---|---|---|---|
+| 1 (original) | .831 / .831 | .964 / .985 | .846 | .897 |
+| 4 | .829 / .829 | **.968** / .989 | .855 (+.010 [.005, .015]) | .926 (+.030 [.026, .033]) |
+| **8** | .830 / .829 | .966 / **.990** | **.857 (+.013 [.008, .017])** | **.930 (+.034 [.030, .037])** |
+
+- **MOS is unchanged,** so pooling is not the quality bottleneck.
+- **Drop sensitivity improves significantly,** especially V on hard drops (+.03).
+- **Next:** the Plan A fusion will use 8 queries per head.
 
 ---
 
@@ -411,7 +421,7 @@ flowchart LR
     W2["Motion only at 384×216<br/>(single drops 89.6%; DropDev-hard .85;<br/>LIVE-VQC < TLVQM)"] --> A["A: native-resolution temporal tiles<br/>(256×256 × 32 frames @60 fps)"]
     W3["V has no perceptual signal<br/>(visibility ≈ chance on subtle drops)"] --> C["C: temporal-perception MOS<br/>(LIVE-YT-HFR, AVT-VQDB-UHD-1)"]
     W4["Few contents, many distortions<br/>(~7.4k sources × ~16 versions;<br/>pairs are within-content only)"] --> D["D: cross-content anchor pairs;<br/>sample one version per source;<br/>add more sources"]
-    W5["Pooling bottleneck<br/>(1,952 tokens → 1 vector per head)"] --> E["E17: more pooling queries<br/>(running)"]
+    W5["Pooling bottleneck<br/>(1,952 tokens → 1 vector per head)"] --> E["E17 done: 8 queries per head<br/>DropDev-hard V +.034, MOS unchanged"]
 ```
 
 1. **(A) High-resolution temporal branch.** This is the largest expected gain on drops, visibility and DropDev-hard, and no baseline sees 60 fps at native resolution.
