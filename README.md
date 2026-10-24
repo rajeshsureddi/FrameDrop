@@ -31,6 +31,13 @@ The model reads only decoded pixels in display order. It outputs two scores:
 
 It is trained mostly from **label-free pair order** ("more drops / lower bitrate / stronger capture distortion is worse") on 110k real encodes of 7,373 clean 4K60 sources. Public MOS (LSVQ, and in v4 YouTube-UGC and LIVE-YT-Gaming) adds an absolute quality scale.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t01_dark.svg">
+  <img alt="1. Summary: table 1" src="figures/tables/t01_light.svg" width="847">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Result (SROCC / PLCC) | Ours | Best baseline |
 |---|---|---|
 | Study, **zero-shot** | **v4: .816 / .805** | UVQ1.5: .770 / .774 |
@@ -41,6 +48,8 @@ It is trained mostly from **label-free pair order** ("more drops / lower bitrate
 | KoNViD-1k / LIVE-VQC / YT-UGC, full fine-tune | .848 / .821 / .829 | HFVQA .927 / .915 / .921 |
 | LSVQ test / 1080p, trained on LSVQ | v3: .851 / .726 | HFVQA .906 / .873 |
 | DropDev-hard, drop ordering (Q / V) | v4: .851 / .922 | n/a (benchmark is ours) |
+
+</details>
 
 ---
 
@@ -86,6 +95,13 @@ flowchart LR
 
 **Public MOS sets** are used at native resolution and frame rate, never upscaled.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t02_dark.svg">
+  <img alt="2. Data pipeline: table 2" src="figures/tables/t02_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Dataset | Clips | Used for |
 |---|---|---|
 | LSVQ train | 28,056 | MOS training (v2, v3, v4); a 90/10 split (train90 / val10) for selection |
@@ -94,6 +110,8 @@ flowchart LR
 | LIVE-VQC | 585 | evaluation; Step 14 per-split fine-tune |
 | YouTube-UGC (CRF-10 H.264, MOS available) | 977 | v4 training (split-0 train, 684); Step 14 fine-tune |
 | LIVE-YT-Gaming | 600 (430 train / 109 val / 61 excluded) | v4 training; the 5 titles shared with the study are excluded |
+
+</details>
 
 ---
 
@@ -136,11 +154,20 @@ flowchart LR
     AP -.-> PF["512-d pooled clip feature<br/>(used by Protocol A)"]
 ```
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t03_dark.svg">
+  <img alt="4. Model: table 3" src="figures/tables/t03_light.svg" width="846">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Stage | Pretraining objective in this project | Training size |
 |---|---|---|
 | 1. Tile-MAE | MAE reconstruction, 75% mask; targets are normalised pixels + per-patch mean/std. Rank loss on rate/severity tile pairs (weight .1). | 100k steps × 516 tiles, 3×A100, average of the last 4 checkpoints |
 | 2. Video-MAE | MAE with whole-time-step masking (50% of steps, then 50% of the remaining tokens), so held frames must be predicted from their neighbours. Rank loss on drop pairs (weight .1). | 100k steps × 66 windows, 3×A100, average of the last 4 checkpoints |
 | 3. Fusion | L_rank + L_drop + 0.1 L_inv; plus L_mos from v2 on | see §5 |
+
+</details>
 
 **Hard rules** (all versions):
 - **Pixels only:** no timestamps, codec, bitstream or frame-difference statistics, and never the injected parameters.
@@ -162,6 +189,13 @@ flowchart LR
     v3 --> v4["<b>v4</b><br/>+ YT-UGC & LIVE-YT-Gaming MOS<br/>batches LSVQ .6 / UGC .25 / Gaming .15"]
 ```
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t04_dark.svg">
+  <img alt="5. Model versions and training: table 4" src="figures/tables/t04_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Version | What is trained | Data | Steps (epochs) |
 |---|---|---|---|
 | v1 | fusion only (encoders frozen) | 60k synthetic pairs | 30k × 16 pairs (8 epochs) |
@@ -171,6 +205,8 @@ flowchart LR
 | v2_90 / v3_90 | as v2 / v3 | LSVQ train90 | as above |
 | d1 | Stage 1 from DINOv2-S, then the full chain | train90 | 50k (Stage 1) + chain |
 | v4 | all stages, from v3 | LSVQ + YT-UGC split-0 train + Gaming train | 6k (0.8 LSVQ, 13 UGC, 12.6 Gaming epochs) |
+
+</details>
 
 ---
 
@@ -203,6 +239,13 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 - **Failed checks:** Stage 1 reconstruction error does not rise with severity, and Stage 1 features have low spread (std .097). In Stage 2, the "catch-up frame" check failed, and single-frame drops are ordered correctly only 89.6% of the time.
 
 ### E2: v2, add LSVQ MOS to the fusion (encoders frozen)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t05_dark.svg">
+  <img alt="E2: v2, add LSVQ MOS to the fusion (encoders frozen): table 5" src="figures/tables/t05_light.svg" width="722">
+</picture>
+
+<details><summary>table as text</summary>
+
 | | v1 | **v2 (MOS + pairs)** | v2_mos_only |
 |---|---|---|---|
 | LSVQ test SROCC / PLCC | .296 / .334 | **.832 / .831** | .832 / .830 |
@@ -210,6 +253,8 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 | KoNViD-1k | .434 / .439 | **.816 / .812** | .814 / .810 |
 | Study (old MOS) | .640 / .635 | **.738 / .727** | .741 / .730 |
 | Study: consecutive drops ordered by Q | 94.6% | 88.3% | **75.2%** |
+
+</details>
 
 **Pairs are needed:** without them, MOS-only training loses drop ordering (88% → 75%).
 
@@ -229,6 +274,13 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 - **Use:** it became the main development signal for drop sensitivity.
 
 ### E6: backbone probe (ridge on frozen tile features, LSVQ val10 / KoNViD)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t06_dark.svg">
+  <img alt="E6: backbone probe (ridge on frozen tile features, LSVQ val10 / KoNViD): table 6" src="figures/tables/t06_light.svg" width="664">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Backbone | val10 SROCC | KoNViD SROCC | Time per 10 s 4K60 clip |
 |---|---|---|---|
 | ours (v1 Stage 1) | .736 | .726 | 0.24 s |
@@ -236,6 +288,8 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 | **DINOv2-S** | **.787** | **.771** | 0.29 s |
 | DINOv2-B | .786 | .770 | 0.65 s |
 | DINOv2-L | .788 | .747 | 1.84 s |
+
+</details>
 
 **Model size doesn't help; the pretraining does.** DINOv2-S beats our Tile-MAE by about .025.
 
@@ -257,6 +311,13 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 ### E10: Step 14, full fine-tuning per dataset (HFVQA Protocol 2)
 Starting from v3: 70/10/20 splits, encoders frozen for 4 epochs, then all trained, 12 epochs; best validation epoch, then test once.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t07_dark.svg">
+  <img alt="E10: Step 14, full fine-tuning per dataset (HFVQA Protocol 2): table 7" src="figures/tables/t07_light.svg" width="793">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Dataset (splits) | Ours v3 SROCC / PLCC | HFVQA | DOVER | BVQA |
 |---|---|---|---|---|
 | KoNViD-1k (10) | .848 / .845 | .927 / .926 | .899 / .897 | .836 / .834 |
@@ -264,9 +325,18 @@ Starting from v3: 70/10/20 splits, encoders frozen for 4 epochs, then all traine
 | YouTube-UGC (10) | .829 / .804 | .921 / .919 | .873 / .877 | .819 / .831 |
 | **Study (20, baselines' splits)** | **.923 / .918** | n/a | n/a | n/a |
 
+</details>
+
 On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on fixed features, so the comparison is **not matched**. A matched full fine-tune of DOVER and FasterVQA was planned, then cancelled (E16).
 
 ### E11: v4, more MOS data (YouTube-UGC + LIVE-YT-Gaming)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t08_dark.svg">
+  <img alt="E11: v4, more MOS data (YouTube-UGC + LIVE-YT-Gaming): table 8" src="figures/tables/t08_light.svg" width="717">
+</picture>
+
+<details><summary>table as text</summary>
+
 | | v3 | **v4** |
 |---|---|---|
 | YT-UGC split-0 test / Gaming val (in-domain) | .688 / .660 | **.792 / .693** |
@@ -276,6 +346,8 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 | **Study zero-shot SROCC / PLCC / RMSE** | .767 / .757 / .418 | **.816 / .805 / .380** |
 | Study, frozen features: ridge / SVR | .792 / .799 | **.838 / .827** |
 
+</details>
+
 - **v4 is the first model to beat every zero-shot baseline on the study.**
 - **Cost:** it loses .01–.035 on public sets it never saw.
 - **Caveat:** the study was used to choose between v3 and v4, so it now counts as a selection set.
@@ -283,6 +355,13 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 ### E12: frame-drop visibility vs human labels
 - **Label:** the majority vote of the four human grades (Not / Barely / Slightly / Clearly noticeable). Grade counts are 687 / 252 / 144 / 740.
 - **Accuracy:** uses cut-points on V learned by grouped 5-fold cross-validation (10 seeds), so every video is predicted exactly once.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t09_dark.svg">
+  <img alt="E12: frame-drop visibility vs human labels: table 9" src="figures/tables/t09_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
 
 | Method | 4-class accuracy | Noticed vs not: accuracy / AUC | Clearly vs rest: accuracy / AUC |
 |---|---|---|---|
@@ -295,6 +374,8 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 | InternVL3-8B (direct answer) | .376 | .377 / .499 | .592 / .499 |
 | InternVideo3-8B (direct answer) | .227 | .552 / .493 | .529 / .485 |
 
+</details>
+
 - **All methods are weak.** Ours is the only one above chance on AUC, and middle grades are almost never predicted correctly.
 - **The VLMs are blind to timing.** Their own control tests show this: a 100%-frozen or shuffled clip still gets "None noticeable".
 
@@ -302,6 +383,13 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; concatenated **.873 / .861**. **Dropped by decision:** results must come from our model alone, without hand-crafted features.
 
 ### E14: multi-scale frozen features on the study (downscale inside the decode, no re-encode)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t10_dark.svg">
+  <img alt="E14: multi-scale frozen features on the study (downscale inside the decode, no re-encode): table 10" src="figures/tables/t10_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Features (v4) | Ridge SROCC / PLCC | Grid-searched SVR SROCC / PLCC | Fixed SVR SROCC / PLCC |
 |---|---|---|---|
 | full (512) | .838 / .823 | .827 / .824 | .826 / .827 |
@@ -310,10 +398,19 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | full + half (1024) | .838 / .827 | .844 / .841 | .846 / .841 |
 | **full + half + quarter (1536)** | **.844 / .835** | **.845 / .842** | **.848 / .842** |
 
+</details>
+
 - **Gain:** a second scale adds about .02. A third adds little, though consistently: it wins on 14–17 of 20 splits.
 - **Ceiling:** about .845, still below GAMIVAL's .886.
 
 ### E15: multi-scale frozen features on public sets (v3; Step 14 splits; train+val → test)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t11_dark.svg">
+  <img alt="E15: multi-scale frozen features on public sets (v3; Step 14 splits; train+val → test): table 11" src="figures/tables/t11_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Dataset | Features | Ridge | Grid-searched SVR | Fixed SVR | TLVQM / VIDEVAL (features + SVR) |
 |---|---|---|---|---|---|
 | KoNViD-1k | native | .837 / .830 | .837 / .836 | .834 / .837 | .768 / .780 |
@@ -322,6 +419,8 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | | native + half | **.781 / .804** | .775 / .783 | .723 / .732 | |
 | YouTube-UGC | native | .758 / .748 | .759 / .742 | .753 / .734 | .659 / .773 |
 | | native + half | .778 / .757 | **.792 / .763** | **.792 / .766** | |
+
+</details>
 
 - **Multiple scales only help YouTube-UGC,** whose sources range from 360p to 4K.
 - **Against hand-crafted baselines:** we beat them on KoNViD-1k and YouTube-UGC. On LIVE-VQC we lose to TLVQM, whose motion features suit its camera shake.
@@ -340,6 +439,13 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 ## 8. Consolidated results
 
 ### 8.1 FrameDrop-VQA study vs official baselines (1,823 videos)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t12_dark.svg">
+  <img alt="8.1 FrameDrop-VQA study vs official baselines (1,823 videos): table 12" src="figures/tables/t12_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Method | Protocol | PLCC | SROCC | KROCC | RMSE |
 |---|---|---|---|---|---|
 | **Ours v3, full fine-tune** | trained (20 splits) | .918 | .923 | .759 | .263 |
@@ -361,7 +467,16 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | P.1204.3 | zero-shot | .255 | −.274 | | .620 |
 | InternVideo3-8B / InternVL3-8B | zero-shot | .232 / .169 | .194 / −.075 | | |
 
+</details>
+
 ### 8.2 Public sets, HFVQA Table 1 layout (SROCC / PLCC)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t13_dark.svg">
+  <img alt="8.2 Public sets, HFVQA Table 1 layout (SROCC / PLCC): table 13" src="figures/tables/t13_light.svg" width="900">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Method | LSVQ test | LSVQ 1080p | KoNViD (cross) | LIVE-VQC (cross) | KoNViD (FT) | LIVE-VQC (FT) | YT-UGC (FT) |
 |---|---|---|---|---|---|---|---|
 | TLVQM | .774 / .772 | .616 / .589 | .724 / .732 | .691 / .670 | .768 / .773 | .803 / .799 | .659 / .669 |
@@ -373,9 +488,18 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | **Ours v3** (LSVQ only) | .851 / .850 | .726 / .767 | .838 / .834 | .699 / .752 | .848 / .845 | .821 / .834 | .829 / .804 |
 | Ours v4† | .843 / .841 | .714 / .759 | .829 / .830 | .664 / .728 | | | n/a |
 
+</details>
+
 † v4 also trained on YT-UGC and LIVE-YT-Gaming train splits, so it is not LSVQ-only.
 
 ### 8.3 Drop ordering on development benchmarks (Q / V accuracy)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t14_dark.svg">
+  <img alt="8.3 Drop ordering on development benchmarks (Q / V accuracy): table 14" src="figures/tables/t14_light.svg" width="612">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Model | DropDev (16,020 pairs) | DropDev-hard (15,496 pairs) |
 |---|---|---|
 | v1 | .966 / .989 | .854 / .925 |
@@ -385,6 +509,8 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | d1 | **.971** / .987 | **.875** / .910 |
 | **v4** | .964 / .988 | .851 / .922 |
 
+</details>
+
 ### 8.4 Study evaluations to date
 There have been 18 logged evaluations: zero-shot scoring runs, frozen-feature runs, visibility re-scores and the multi-scale runs. The full list, with the model, what changed and the ground-truth file for each, is in [`results/study_eval_log.csv`](results/study_eval_log.csv).
 
@@ -393,11 +519,20 @@ There have been 18 logged evaluations: zero-shot scoring runs, frozen-feature ru
 ## 9. Speed
 Measured on one A100-40GB with real 4K60 clips, bf16:
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t15_dark.svg">
+  <img alt="9. Speed: table 15" src="figures/tables/t15_light.svg" width="617">
+</picture>
+
+<details><summary>table as text</summary>
+
 | Measure | Throughput | × real time |
 |---|---|---|
 | Model only: tiles + motion + fusion, incl. host→device copies (v3) | ≈ 1,974 fps | 33× |
 | End to end, 1 stream (NVDEC + CPU downscale/crops + GPU) | 75–112 fps | 1.3–1.9× |
 | End to end, 16 decode processes into 1 GPU | ≈ 300–900 fps | 5–15× |
+
+</details>
 
 Decoding and CPU-side resizing take more than 90% of single-stream time. Moving the resize and crops onto the GPU is the obvious next speed-up. AV1 has no NVDEC support on A100.
 
@@ -424,7 +559,10 @@ flowchart LR
 
 ## 11. Repository layout
 ```
-README.md                     this report
+README.md                     this report (generated: tables rendered as light/dark SVG images)
+figures/tables/               the rendered tables (plain-text copies are under each image)
+tools/README_src.md           report source with plain Markdown tables
+tools/render_tables.py        renders the tables and writes README.md
 results/
   study_eval_log.csv          every study evaluation (model, what changed, metrics, ground truth)
   baselines_framedrop_vqa.csv official FrameDrop-VQA baseline table
