@@ -1,0 +1,4 @@
+# Python 3.10+; tested with torch 2.6 + CUDA 12.4
+torch>=2.1
+numpy
+# plus ffmpeg/ffprobe on PATH (ffmpeg >= 6; built with --enable-cuda-nvdec / cuvid for NVDEC decode)

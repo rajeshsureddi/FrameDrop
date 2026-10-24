@@ -1,0 +1,6 @@
+torch>=2.1
+torchvision>=0.16
+av>=12
+numpy
+scipy
+scikit-learn
