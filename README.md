@@ -4,6 +4,8 @@
 
 > **Update 2026-11-02:** new public-set results (DINOv2-S and Tile-MAE models, LSVQ-trained) against the HFVQA Table 1 baselines, with training and evaluation written out: [`results/PUBLIC_2026-11-02.md`](results/PUBLIC_2026-11-02.md).
 >
+> **Study and visibility, 2026-11-02:** study MOS (zero-shot, Protocol A) and frame-drop visibility of the same models: [`results/STUDY_2026-11-02.md`](results/STUDY_2026-11-02.md). Priority now: public sets.
+>
 > **Correction 2026-11-02:** HFVQA Table 1 reports **PLCC / SRCC**; earlier versions of this report read it as SROCC / PLCC. §8.2, E10, E15 and the summary table are fixed.
 
 > **Data-use rule:** the FrameDrop-VQA subjective study (1,823 videos, 35 contents, 4K60) is never used for training, tuning or checkpoint selection.
