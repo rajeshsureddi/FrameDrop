@@ -2,6 +2,8 @@
 
 **Status report, 2026-10-23.** This covers the data pipeline, the model, every experiment run so far, and every PLCC/SROCC result.
 
+> **Update 2026-11-02:** new public-set results (DINOv2-S and Tile-MAE models, LSVQ-trained) against the HFVQA Table 1 baselines, with training and evaluation written out: [`results/PUBLIC_2026-11-02.md`](results/PUBLIC_2026-11-02.md).
+
 > **Data-use rule:** the FrameDrop-VQA subjective study (1,823 videos, 35 contents, 4K60) is never used for training, tuning or checkpoint selection.
 > - The one exception: per-split fine-tuning, marked "trained" in the tables.
 > - Every scoring run on the study is logged in [`results/study_eval_log.csv`](results/study_eval_log.csv): 18 evaluations to date (§7).

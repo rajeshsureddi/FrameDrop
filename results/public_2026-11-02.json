@@ -1,0 +1,301 @@
+{
+ "note": "SROCC/PLCC (PLCC after 4-param logistic). L = fit on LSVQ train; D = 10 per-dataset splits, median.",
+ "models": {
+  "dino_raw": {
+   "direct_Q": {
+    "native": {
+     "lsvq_test": {
+      "SROCC": 0.8809,
+      "PLCC": 0.8809
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7593,
+      "PLCC": 0.8016
+     },
+     "konvid1k": {
+      "SROCC": 0.87,
+      "PLCC": 0.8751
+     },
+     "livevqc": {
+      "SROCC": 0.6831,
+      "PLCC": 0.7565
+     },
+     "ytugc": {
+      "SROCC": 0.8228,
+      "PLCC": 0.8268
+     }
+    },
+    "half": {
+     "lsvq_test": {
+      "SROCC": 0.8386,
+      "PLCC": 0.8424
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7591,
+      "PLCC": 0.8072
+     },
+     "konvid1k": {
+      "SROCC": 0.8076,
+      "PLCC": 0.8282
+     },
+     "livevqc": {
+      "SROCC": 0.6337,
+      "PLCC": 0.7247
+     },
+     "ytugc": {
+      "SROCC": 0.7952,
+      "PLCC": 0.7962
+     }
+    },
+    "ms": {
+     "lsvq_test": {
+      "SROCC": 0.8745,
+      "PLCC": 0.8757
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7718,
+      "PLCC": 0.815
+     },
+     "konvid1k": {
+      "SROCC": 0.8545,
+      "PLCC": 0.8648
+     },
+     "livevqc": {
+      "SROCC": 0.6711,
+      "PLCC": 0.753
+     },
+     "ytugc": {
+      "SROCC": 0.8285,
+      "PLCC": 0.8304
+     }
+    }
+   },
+   "fusion+S1S2|ms": {
+    "svr": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.8919,
+       "PLCC": 0.8923
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.7973,
+       "PLCC": 0.8315
+      },
+      "konvid1k": {
+       "SROCC": 0.8838,
+       "PLCC": 0.8867
+      },
+      "livevqc": {
+       "SROCC": 0.7619,
+       "PLCC": 0.8067
+      },
+      "ytugc": {
+       "SROCC": 0.8322,
+       "PLCC": 0.8375
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.8914,
+       "PLCC": 0.8963
+      },
+      "livevqc": {
+       "SROCC": 0.8606,
+       "PLCC": 0.8742
+      },
+      "ytugc": {
+       "SROCC": 0.8648,
+       "PLCC": 0.8653
+      }
+     }
+    },
+    "ridge": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.8896,
+       "PLCC": 0.8898
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.7877,
+       "PLCC": 0.8251
+      },
+      "konvid1k": {
+       "SROCC": 0.8829,
+       "PLCC": 0.8853
+      },
+      "livevqc": {
+       "SROCC": 0.7443,
+       "PLCC": 0.7961
+      },
+      "ytugc": {
+       "SROCC": 0.8271,
+       "PLCC": 0.8326
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.8923,
+       "PLCC": 0.8963
+      },
+      "livevqc": {
+       "SROCC": 0.8426,
+       "PLCC": 0.8616
+      },
+      "ytugc": {
+       "SROCC": 0.8551,
+       "PLCC": 0.8568
+      }
+     }
+    }
+   }
+  },
+  "stageB_alt_gv": {
+   "direct_Q": {
+    "native": {
+     "lsvq_test": {
+      "SROCC": 0.846,
+      "PLCC": 0.8446
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.711,
+      "PLCC": 0.7644
+     },
+     "konvid1k": {
+      "SROCC": 0.8396,
+      "PLCC": 0.8431
+     },
+     "livevqc": {
+      "SROCC": 0.681,
+      "PLCC": 0.7404
+     },
+     "ytugc": {
+      "SROCC": 0.7706,
+      "PLCC": 0.7705
+     }
+    },
+    "half": {
+     "lsvq_test": {
+      "SROCC": 0.7776,
+      "PLCC": 0.7784
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.6711,
+      "PLCC": 0.7375
+     },
+     "konvid1k": {
+      "SROCC": 0.7661,
+      "PLCC": 0.7784
+     },
+     "livevqc": {
+      "SROCC": 0.5162,
+      "PLCC": 0.5924
+     },
+     "ytugc": {
+      "SROCC": 0.7212,
+      "PLCC": 0.7146
+     }
+    },
+    "ms": {
+     "lsvq_test": {
+      "SROCC": 0.8338,
+      "PLCC": 0.8332
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7167,
+      "PLCC": 0.7727
+     },
+     "konvid1k": {
+      "SROCC": 0.8223,
+      "PLCC": 0.8276
+     },
+     "livevqc": {
+      "SROCC": 0.6184,
+      "PLCC": 0.6908
+     },
+     "ytugc": {
+      "SROCC": 0.7755,
+      "PLCC": 0.7724
+     }
+    }
+   },
+   "fusion+S1S2|ms": {
+    "svr": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.8587,
+       "PLCC": 0.8599
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.7462,
+       "PLCC": 0.7952
+      },
+      "konvid1k": {
+       "SROCC": 0.8478,
+       "PLCC": 0.8512
+      },
+      "livevqc": {
+       "SROCC": 0.74,
+       "PLCC": 0.7849
+      },
+      "ytugc": {
+       "SROCC": 0.7903,
+       "PLCC": 0.7953
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.847,
+       "PLCC": 0.8534
+      },
+      "livevqc": {
+       "SROCC": 0.8307,
+       "PLCC": 0.8287
+      },
+      "ytugc": {
+       "SROCC": 0.8458,
+       "PLCC": 0.8439
+      }
+     }
+    },
+    "ridge": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.852,
+       "PLCC": 0.8528
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.7271,
+       "PLCC": 0.7784
+      },
+      "konvid1k": {
+       "SROCC": 0.8472,
+       "PLCC": 0.8492
+      },
+      "livevqc": {
+       "SROCC": 0.7227,
+       "PLCC": 0.7716
+      },
+      "ytugc": {
+       "SROCC": 0.7807,
+       "PLCC": 0.7829
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.8485,
+       "PLCC": 0.8493
+      },
+      "livevqc": {
+       "SROCC": 0.8396,
+       "PLCC": 0.8445
+      },
+      "ytugc": {
+       "SROCC": 0.8382,
+       "PLCC": 0.8343
+      }
+     }
+    }
+   }
+  }
+ }
+}
