@@ -444,6 +444,154 @@
      }
     }
    }
+  },
+  "dino_long_aug": {
+   "direct_Q": {
+    "native": {
+     "lsvq_test": {
+      "SROCC": 0.8853,
+      "PLCC": 0.886
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7794,
+      "PLCC": 0.8191
+     },
+     "konvid1k": {
+      "SROCC": 0.8789,
+      "PLCC": 0.8801
+     },
+     "livevqc": {
+      "SROCC": 0.7282,
+      "PLCC": 0.7765
+     },
+     "ytugc": {
+      "SROCC": 0.8266,
+      "PLCC": 0.8299
+     }
+    },
+    "half": {
+     "lsvq_test": {
+      "SROCC": 0.8788,
+      "PLCC": 0.8793
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7946,
+      "PLCC": 0.8313
+     },
+     "konvid1k": {
+      "SROCC": 0.8486,
+      "PLCC": 0.8563
+     },
+     "livevqc": {
+      "SROCC": 0.7495,
+      "PLCC": 0.7959
+     },
+     "ytugc": {
+      "SROCC": 0.8238,
+      "PLCC": 0.8263
+     }
+    },
+    "ms": {
+     "lsvq_test": {
+      "SROCC": 0.8889,
+      "PLCC": 0.8895
+     },
+     "lsvq_1080p": {
+      "SROCC": 0.7968,
+      "PLCC": 0.8348
+     },
+     "konvid1k": {
+      "SROCC": 0.8726,
+      "PLCC": 0.876
+     },
+     "livevqc": {
+      "SROCC": 0.7453,
+      "PLCC": 0.7919
+     },
+     "ytugc": {
+      "SROCC": 0.8398,
+      "PLCC": 0.8436
+     }
+    }
+   },
+   "fusion+S1S2|ms": {
+    "svr": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.8936,
+       "PLCC": 0.8948
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.8047,
+       "PLCC": 0.8406
+      },
+      "konvid1k": {
+       "SROCC": 0.8832,
+       "PLCC": 0.8864
+      },
+      "livevqc": {
+       "SROCC": 0.7807,
+       "PLCC": 0.8178
+      },
+      "ytugc": {
+       "SROCC": 0.8322,
+       "PLCC": 0.8398
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.8981,
+       "PLCC": 0.8973
+      },
+      "livevqc": {
+       "SROCC": 0.8727,
+       "PLCC": 0.8834
+      },
+      "ytugc": {
+       "SROCC": 0.8711,
+       "PLCC": 0.8749
+      }
+     }
+    },
+    "ridge": {
+     "L": {
+      "lsvq_test": {
+       "SROCC": 0.8926,
+       "PLCC": 0.8937
+      },
+      "lsvq_1080p": {
+       "SROCC": 0.8034,
+       "PLCC": 0.8394
+      },
+      "konvid1k": {
+       "SROCC": 0.8826,
+       "PLCC": 0.8855
+      },
+      "livevqc": {
+       "SROCC": 0.7768,
+       "PLCC": 0.8159
+      },
+      "ytugc": {
+       "SROCC": 0.8323,
+       "PLCC": 0.8402
+      }
+     },
+     "D": {
+      "konvid1k": {
+       "SROCC": 0.8968,
+       "PLCC": 0.8968
+      },
+      "livevqc": {
+       "SROCC": 0.8634,
+       "PLCC": 0.8742
+      },
+      "ytugc": {
+       "SROCC": 0.862,
+       "PLCC": 0.8644
+      }
+     }
+    }
+   }
   }
  }
 }
