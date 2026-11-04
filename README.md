@@ -2,6 +2,8 @@
 
 **Status report, 2026-10-23.** This covers the data pipeline, the model, every experiment run so far, and every PLCC/SROCC result.
 
+> **Update 2026-11-04:** our synthetic data (no human labels) makes public VideoMAE-v2-S better at quality on every public set (+.03 to +.08 SRCC), plus VideoMAE-v2-B probes and full training details: [`results/PUBLIC_2026-11-04.md`](results/PUBLIC_2026-11-04.md).
+>
 > **Update 2026-11-03:** public-set table with motion48 added, a probe of whether our motion encoder (S2) helps on top of DINOv2, and a VideoMAE-v2-S motion-feature probe: [`results/PUBLIC_2026-11-03.md`](results/PUBLIC_2026-11-03.md).
 >
 > **Update 2026-11-02:** new public-set results (DINOv2-S and Tile-MAE models, LSVQ-trained) against the HFVQA Table 1 baselines, with training and evaluation written out: [`results/PUBLIC_2026-11-02.md`](results/PUBLIC_2026-11-02.md).
