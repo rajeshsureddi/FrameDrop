@@ -1,4 +1,4 @@
-# Public-set results, all experiments to 2026-11-06 (PLCC, SRCC)
+# Public-set results, all experiments to 2026-11-06 PLCC/SRCC
 
 One table with every model evaluated on the public sets so far, compared with MVQA (the target), and one section per row
 that explains how that row's model was trained and evaluated. Earlier pages: [`PUBLIC_2026-11-06.md`](PUBLIC_2026-11-06.md),
@@ -6,7 +6,7 @@ that explains how that row's model was trained and evaluated. Earlier pages: [`P
 
 ## How to read the table
 
-- Every cell is **(PLCC, SRCC)**; PLCC is computed after a 4-parameter logistic fit. MVQA numbers are copied from Table 1 of
+- Every cell is **PLCC/SRCC**; PLCC is computed after a 4-parameter logistic fit. MVQA numbers are copied from Table 1 of
   arXiv 2609.16946 (MVQA reports no YouTube-UGC cross-dataset number and no parameter or FLOP count we could verify: n/r).
 - Colour key: $\color{green}{\mathbf{green}}$ = best in the column, $\color{blue}{\mathbf{blue}}$ = second best; PLCC
   and SRCC are ranked separately.
@@ -22,58 +22,58 @@ that explains how that row's model was trained and evaluated. Earlier pages: [`P
 
 | # | Model | Params | TFLOPs/clip | LSVQ test | LSVQ 1080p | KoNViD x | LIVE-VQC x | YT-UGC x | KoNViD FT | LIVE-VQC FT | YT-UGC FT |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-|  | **MVQA (baseline)** | n/r | n/r | $(.899,\enspace .898)$ | $(.846,\enspace .812)$ | $(.887,\enspace .885)$ | $(\color{green}{\mathbf{.873}},\enspace \color{green}{\mathbf{.852}})$ | – | $(\color{green}{\mathbf{.925}},\enspace \color{green}{\mathbf{.925}})$ | $(.895,\enspace .878)$ | $(\color{green}{\mathbf{.903}},\enspace \color{green}{\mathbf{.901}})$ |
+|  | **MVQA (baseline)** | n/r | n/r | $0.899/0.898$ | $0.846/0.812$ | $0.887/0.885$ | $\color{green}{\mathbf{0.873}}/\color{green}{\mathbf{0.852}}$ | – | $\color{green}{\mathbf{0.925}}/\color{green}{\mathbf{0.925}}$ | $0.895/0.878$ | $\color{green}{\mathbf{0.903}}/\color{green}{\mathbf{0.901}}$ |
 |  | *A. Raw public encoders, frozen (no training by us)* |  |  |  |  |  |  |  |  |  |  |
-| 1 | DINOv2-S raw | 25M | 2.76 | $(.827,\enspace .824)$ | $(.767,\enspace .721)$ | $(.801,\enspace .782)$ | $(.762,\enspace .710)$ | $(.661,\enspace .632)$ | $(.779,\enspace .753)$ | $(.754,\enspace .679)$ | $(.740,\enspace .744)$ |
-| 2 | VideoMAE-v2-B raw | 86M | 1.79 | $(.881,\enspace .880)$ | $(.831,\enspace .791)$ | $(.859,\enspace .852)$ | $(.832,\enspace .790)$ | $(.785,\enspace .774)$ | $(.836,\enspace .816)$ | $(.850,\enspace .843)$ | $(.811,\enspace .816)$ |
-| 3 | DINOv2-S raw + V2-B raw | 111M | 4.54 | $(.889,\enspace .888)$ | $(.847,\enspace .812)$ | $(.872,\enspace .866)$ | $(.847,\enspace .806)$ | $(.790,\enspace .773)$ | $(.854,\enspace .839)$ | $(.863,\enspace .847)$ | $(.832,\enspace .834)$ |
+| 1 | DINOv2-S raw | 25M | 2.76 | $0.827/0.824$ | $0.767/0.721$ | $0.801/0.782$ | $0.762/0.710$ | $0.661/0.632$ | $0.779/0.753$ | $0.754/0.679$ | $0.740/0.744$ |
+| 2 | VideoMAE-v2-B raw | 86M | 1.79 | $0.881/0.880$ | $0.831/0.791$ | $0.859/0.852$ | $0.832/0.790$ | $0.785/0.774$ | $0.836/0.816$ | $0.850/0.843$ | $0.811/0.816$ |
+| 3 | DINOv2-S raw + V2-B raw | 111M | 4.54 | $0.889/0.888$ | $0.847/0.812$ | $0.872/0.866$ | $0.847/0.806$ | $0.790/0.773$ | $0.854/0.839$ | $0.863/0.847$ | $0.832/0.834$ |
 |  | *B. Stage A (our Tile-MAE S1 + V-MAE S2, synthetic-only pretraining) + LSVQ fusion* |  |  |  |  |  |  |  |  |  |  |
-| 4 | Stage A frozen (33c fusion) | 54M | 4.55 | $(.849,\enspace .848)$ | $(.778,\enspace .730)$ | $(.852,\enspace .850)$ | $(.774,\enspace .726)$ | $(.781,\enspace .771)$ | $(.836,\enspace .827)$ | $(.824,\enspace .809)$ | $(.827,\enspace .832)$ |
-| 5 | Stage A e2e (e2e_mos) | 54M | 4.55 | $(.847,\enspace .846)$ | $(.776,\enspace .727)$ | $(.847,\enspace .846)$ | $(.763,\enspace .713)$ | $(.789,\enspace .785)$ | $(.850,\enspace .845)$ | $(.828,\enspace .820)$ | $(.841,\enspace .845)$ |
-| 6 | Stage A e2e long + downscale aug (long_aug) | 54M | 4.55 | $(.855,\enspace .854)$ | $(.786,\enspace .740)$ | $(.848,\enspace .845)$ | $(.786,\enspace .747)$ | $(.790,\enspace .787)$ | $(.850,\enspace .842)$ | $(.833,\enspace .816)$ | $(.840,\enspace .848)$ |
+| 4 | Stage A frozen (33c fusion) | 54M | 4.55 | $0.849/0.848$ | $0.778/0.730$ | $0.852/0.850$ | $0.774/0.726$ | $0.781/0.771$ | $0.836/0.827$ | $0.824/0.809$ | $0.827/0.832$ |
+| 5 | Stage A e2e (e2e_mos) | 54M | 4.55 | $0.847/0.846$ | $0.776/0.727$ | $0.847/0.846$ | $0.763/0.713$ | $0.789/0.785$ | $0.850/0.845$ | $0.828/0.820$ | $0.841/0.845$ |
+| 6 | Stage A e2e long + downscale aug (long_aug) | 54M | 4.55 | $0.855/0.854$ | $0.786/0.740$ | $0.848/0.845$ | $0.786/0.747$ | $0.790/0.787$ | $0.850/0.842$ | $0.833/0.816$ | $0.840/0.848$ |
 |  | *C. DINOv2-S as S1 (+ Stage A S2) + LSVQ fusion, e2e* |  |  |  |  |  |  |  |  |  |  |
-| 21 | dino_raw frozen (no e2e) | 54M | 5.34 | $(.856,\enspace .854)$ | $(.797,\enspace .754)$ | $(.846,\enspace .837)$ | $(.760,\enspace .701)$ | $(.795,\enspace .795)$ | $(.862,\enspace .847)$ | $(.838,\enspace .808)$ | $(.841,\enspace .844)$ |
-| 7 | dino_raw (6k e2e) | 54M | 5.34 | $(.892,\enspace .892)$ | $(.831,\enspace .797)$ | $(.887,\enspace .884)$ | $(.807,\enspace .762)$ | $(.837,\enspace .832)$ | $(.896,\enspace .891)$ | $(.874,\enspace .861)$ | $(.865,\enspace .865)$ |
-| 8 | dino_noS2 (no motion branch) | 54M | 5.34 | $(.888,\enspace .887)$ | $(.834,\enspace .797)$ | $(.886,\enspace .883)$ | $(.836,\enspace .798)$ | $(.789,\enspace .772)$ | $(.891,\enspace .880)$ | $(.872,\enspace .842)$ | $(.851,\enspace .848)$ |
-| 9 | dla = dino_long_aug (prev. best model) | 54M | 5.34 | $(.895,\enspace .894)$ | $(.841,\enspace .805)$ | $(.886,\enspace .883)$ | $(.818,\enspace .781)$ | $(.840,\enspace .832)$ | $(.897,\enspace .898)$ | $(.883,\enspace .873)$ | $(.875,\enspace .871)$ |
-| 22 | dla recipe, random-init S2 (nosyn_s2) | 54M | 5.34 | $(.877,\enspace .876)$ | $(.820,\enspace .784)$ | $(.868,\enspace .857)$ | $(.806,\enspace .754)$ | $(.840,\enspace .834)$ | $(.886,\enspace .878)$ | $(.844,\enspace .811)$ | $(.864,\enspace .872)$ |
-| 23 | dla recipe, fresh fusion (nosyn_fusion) | 54M | 5.34 | $(.896,\enspace .897)$ | $(.843,\enspace .811)$ | $(.886,\enspace .882)$ | $(.843,\enspace .807)$ | $(.833,\enspace .822)$ | $(.897,\enspace .891)$ | $(.886,\enspace .872)$ | $(.870,\enspace .873)$ |
-| 25 | dla recipe + synthetic ranking stage (synrank) | 54M | 5.34 | $(.894,\enspace .893)$ | $(.834,\enspace .801)$ | $(.890,\enspace .887)$ | $(.812,\enspace .766)$ | $(.843,\enspace .838)$ | $(.898,\enspace .898)$ | $(.886,\enspace .879)$ | $(.877,\enspace .876)$ |
+| 21 | dino_raw frozen (no e2e) | 54M | 5.34 | $0.856/0.854$ | $0.797/0.754$ | $0.846/0.837$ | $0.760/0.701$ | $0.795/0.795$ | $0.862/0.847$ | $0.838/0.808$ | $0.841/0.844$ |
+| 7 | dino_raw (6k e2e) | 54M | 5.34 | $0.892/0.892$ | $0.831/0.797$ | $0.887/0.884$ | $0.807/0.762$ | $0.837/0.832$ | $0.896/0.891$ | $0.874/0.861$ | $0.865/0.865$ |
+| 8 | dino_noS2 (no motion branch) | 54M | 5.34 | $0.888/0.887$ | $0.834/0.797$ | $0.886/0.883$ | $0.836/0.798$ | $0.789/0.772$ | $0.891/0.880$ | $0.872/0.842$ | $0.851/0.848$ |
+| 9 | dla = dino_long_aug (prev. best model) | 54M | 5.34 | $0.895/0.894$ | $0.841/0.805$ | $0.886/0.883$ | $0.818/0.781$ | $0.840/0.832$ | $0.897/0.898$ | $0.883/0.873$ | $0.875/0.871$ |
+| 22 | dla recipe, random-init S2 (nosyn_s2) | 54M | 5.34 | $0.877/0.876$ | $0.820/0.784$ | $0.868/0.857$ | $0.806/0.754$ | $0.840/0.834$ | $0.886/0.878$ | $0.844/0.811$ | $0.864/0.872$ |
+| 23 | dla recipe, fresh fusion (nosyn_fusion) | 54M | 5.34 | $0.896/0.897$ | $0.843/0.811$ | $0.886/0.882$ | $0.843/0.807$ | $0.833/0.822$ | $0.897/0.891$ | $0.886/0.872$ | $0.870/0.873$ |
+| 25 | dla recipe + synthetic ranking stage (synrank) | 54M | 5.34 | $0.894/0.893$ | $0.834/0.801$ | $0.890/0.887$ | $0.812/0.766$ | $0.843/0.838$ | $0.898/0.898$ | $0.886/0.879$ | $0.877/0.876$ |
 |  | *D. V2-B trained by us (frozen probe)* |  |  |  |  |  |  |  |  |  |  |
-| 10 | V2-B syn (synthetic pairs only, llrd .75) | 86M | 1.79 | $(.883,\enspace .881)$ | $(.834,\enspace .794)$ | $(.862,\enspace .855)$ | $(.836,\enspace .796)$ | $(.788,\enspace .777)$ | $(.838,\enspace .823)$ | $(.863,\enspace .853)$ | $(.819,\enspace .829)$ |
-| 26 | V2-B syn, no frame drops (all layers 2e-5) | 86M | 1.79 | $(.874,\enspace .872)$ | $(.815,\enspace .773)$ | $(.857,\enspace .852)$ | $(.824,\enspace .780)$ | $(.787,\enspace .770)$ | $(.844,\enspace .838)$ | $(.860,\enspace .844)$ | $(.802,\enspace .802)$ |
-| 11 | V2-B MOS-only (LSVQ, ReLIQS) | 86M | 1.79 | $(.896,\enspace .895)$ | $(.844,\enspace .808)$ | $(.884,\enspace .879)$ | $(.853,\enspace .822)$ | $(.799,\enspace .785)$ | $(.883,\enspace .878)$ | $(.895,\enspace .891)$ | $(.851,\enspace .851)$ |
-| 27 | V2-B joint (MOS + pairs every 2nd step) | 86M | 1.79 | $(.893,\enspace .892)$ | $(.842,\enspace .804)$ | $(.879,\enspace .876)$ | $(.854,\enspace .822)$ | $(.800,\enspace .785)$ | $(.892,\enspace .888)$ | $(.897,\enspace .892)$ | $(.848,\enspace .844)$ |
-| 28 | V2-B jointL (joint, llrd .75) | 86M | 1.79 | $(.891,\enspace .889)$ | $(.842,\enspace .805)$ | $(.870,\enspace .867)$ | $(.856,\enspace .822)$ | $(.811,\enspace .801)$ | $(.866,\enspace .861)$ | $(.888,\enspace .879)$ | $(.844,\enspace .841)$ |
-| 12 | DINOv2-S raw + V2-B syn | 111M | 4.54 | $(.890,\enspace .889)$ | $(.849,\enspace .813)$ | $(.875,\enspace .869)$ | $(.850,\enspace .813)$ | $(.793,\enspace .776)$ | $(.858,\enspace .842)$ | $(.866,\enspace .855)$ | $(.838,\enspace .845)$ |
-| 13 | DINOv2-S raw + V2-B MOS-only | 111M | 4.54 | $(.900,\enspace .899)$ | $(.851,\enspace .817)$ | $(.888,\enspace .882)$ | $(.861,\enspace .832)$ | $(.801,\enspace .784)$ | $(.889,\enspace .884)$ | $(.896,\enspace .890)$ | $(.865,\enspace .872)$ |
+| 10 | V2-B syn (synthetic pairs only, llrd .75) | 86M | 1.79 | $0.883/0.881$ | $0.834/0.794$ | $0.862/0.855$ | $0.836/0.796$ | $0.788/0.777$ | $0.838/0.823$ | $0.863/0.853$ | $0.819/0.829$ |
+| 26 | V2-B syn, no frame drops (all layers 2e-5) | 86M | 1.79 | $0.874/0.872$ | $0.815/0.773$ | $0.857/0.852$ | $0.824/0.780$ | $0.787/0.770$ | $0.844/0.838$ | $0.860/0.844$ | $0.802/0.802$ |
+| 11 | V2-B MOS-only (LSVQ, ReLIQS) | 86M | 1.79 | $0.896/0.895$ | $0.844/0.808$ | $0.884/0.879$ | $0.853/0.822$ | $0.799/0.785$ | $0.883/0.878$ | $0.895/0.891$ | $0.851/0.851$ |
+| 27 | V2-B joint (MOS + pairs every 2nd step) | 86M | 1.79 | $0.893/0.892$ | $0.842/0.804$ | $0.879/0.876$ | $0.854/0.822$ | $0.800/0.785$ | $0.892/0.888$ | $0.897/0.892$ | $0.848/0.844$ |
+| 28 | V2-B jointL (joint, llrd .75) | 86M | 1.79 | $0.891/0.889$ | $0.842/0.805$ | $0.870/0.867$ | $0.856/0.822$ | $0.811/0.801$ | $0.866/0.861$ | $0.888/0.879$ | $0.844/0.841$ |
+| 12 | DINOv2-S raw + V2-B syn | 111M | 4.54 | $0.890/0.889$ | $0.849/0.813$ | $0.875/0.869$ | $0.850/0.813$ | $0.793/0.776$ | $0.858/0.842$ | $0.866/0.855$ | $0.838/0.845$ |
+| 13 | DINOv2-S raw + V2-B MOS-only | 111M | 4.54 | $0.900/0.899$ | $0.851/0.817$ | $0.888/0.882$ | $0.861/0.832$ | $0.801/0.784$ | $0.889/0.884$ | $0.896/0.890$ | $0.865/0.872$ |
 |  | *E. dla features + V2-B features (concat, frozen probe)* |  |  |  |  |  |  |  |  |  |  |
-| 14 | dla + V2-B raw | 140M | 7.13 | $(.904,\enspace .903)$ | $(.857,\enspace .825)$ | $(.895,\enspace .892)$ | $(.840,\enspace .806)$ | $(.852,\enspace .843)$ | $(.906,\enspace .901)$ | $(.899,\enspace .897)$ | $(.890,\enspace .884)$ |
-| 15 | dla + V2-B syn | 140M | 7.13 | $(.904,\enspace .903)$ | $(.858,\enspace .827)$ | $(.896,\enspace .893)$ | $(.840,\enspace .808)$ | $(\color{blue}{\mathbf{.854}},\enspace \color{blue}{\mathbf{.845}})$ | $(.907,\enspace .900)$ | $(.900,\enspace .898)$ | $(.891,\enspace .886)$ |
-| 29 | dla + V2-B syn, no frame drops | 140M | 7.13 | $(.903,\enspace .902)$ | $(.854,\enspace .821)$ | $(.896,\enspace .893)$ | $(.838,\enspace .804)$ | $(.848,\enspace .839)$ | $(.910,\enspace .906)$ | $(.900,\enspace .897)$ | $(.888,\enspace .883)$ |
-| 16 | dla + V2-B MOS-only | 140M | 7.13 | $(\color{green}{\mathbf{.911}},\enspace \color{green}{\mathbf{.910}})$ | $(\color{green}{\mathbf{.870}},\enspace \color{green}{\mathbf{.837}})$ | $(\color{green}{\mathbf{.903}},\enspace \color{blue}{\mathbf{.899}})$ | $(.853,\enspace .822)$ | $(.850,\enspace .839)$ | $(.915,\enspace .912)$ | $(.916,\enspace .906)$ | $(.896,\enspace .894)$ |
-| 30 | dla + V2-B joint | 140M | 7.13 | $(\color{blue}{\mathbf{.910}},\enspace \color{blue}{\mathbf{.909}})$ | $(\color{blue}{\mathbf{.868}},\enspace \color{blue}{\mathbf{.835}})$ | $(\color{green}{\mathbf{.903}},\enspace \color{green}{\mathbf{.900}})$ | $(.857,\enspace .827)$ | $(.851,\enspace .841)$ | $(.917,\enspace .914)$ | $(.917,\enspace .910)$ | $(.896,\enspace .891)$ |
-| 31 | dla + V2-B jointL | 140M | 7.13 | $(.907,\enspace .906)$ | $(.864,\enspace .832)$ | $(.898,\enspace .895)$ | $(.850,\enspace .818)$ | $(\color{green}{\mathbf{.856}},\enspace \color{green}{\mathbf{.847}})$ | $(.913,\enspace .908)$ | $(.907,\enspace .905)$ | $(.895,\enspace .893)$ |
-| 17 | dla + V2-B jointP4 (MOS + pairs every 4th) | 140M | 7.13 | $(\color{green}{\mathbf{.911}},\enspace \color{green}{\mathbf{.910}})$ | $(\color{blue}{\mathbf{.868}},\enspace .834)$ | $(\color{blue}{\mathbf{.901}},\enspace .897)$ | $(.859,\enspace .825)$ | $(.843,\enspace .832)$ | $(.914,\enspace .912)$ | $(.918,\enspace .911)$ | $(.897,\enspace .893)$ |
+| 14 | dla + V2-B raw | 140M | 7.13 | $0.904/0.903$ | $0.857/0.825$ | $0.895/0.892$ | $0.840/0.806$ | $0.852/0.843$ | $0.906/0.901$ | $0.899/0.897$ | $0.890/0.884$ |
+| 15 | dla + V2-B syn | 140M | 7.13 | $0.904/0.903$ | $0.858/0.827$ | $0.896/0.893$ | $0.840/0.808$ | $\color{blue}{\mathbf{0.854}}/\color{blue}{\mathbf{0.845}}$ | $0.907/0.900$ | $0.900/0.898$ | $0.891/0.886$ |
+| 29 | dla + V2-B syn, no frame drops | 140M | 7.13 | $0.903/0.902$ | $0.854/0.821$ | $0.896/0.893$ | $0.838/0.804$ | $0.848/0.839$ | $0.910/0.906$ | $0.900/0.897$ | $0.888/0.883$ |
+| 16 | dla + V2-B MOS-only | 140M | 7.13 | $\color{green}{\mathbf{0.911}}/\color{green}{\mathbf{0.910}}$ | $\color{green}{\mathbf{0.870}}/\color{green}{\mathbf{0.837}}$ | $\color{green}{\mathbf{0.903}}/\color{blue}{\mathbf{0.899}}$ | $0.853/0.822$ | $0.850/0.839$ | $0.915/0.912$ | $0.916/0.906$ | $0.896/0.894$ |
+| 30 | dla + V2-B joint | 140M | 7.13 | $\color{blue}{\mathbf{0.910}}/\color{blue}{\mathbf{0.909}}$ | $\color{blue}{\mathbf{0.868}}/\color{blue}{\mathbf{0.835}}$ | $\color{green}{\mathbf{0.903}}/\color{green}{\mathbf{0.900}}$ | $0.857/0.827$ | $0.851/0.841$ | $0.917/0.914$ | $0.917/0.910$ | $0.896/0.891$ |
+| 31 | dla + V2-B jointL | 140M | 7.13 | $0.907/0.906$ | $0.864/0.832$ | $0.898/0.895$ | $0.850/0.818$ | $\color{green}{\mathbf{0.856}}/\color{green}{\mathbf{0.847}}$ | $0.913/0.908$ | $0.907/0.905$ | $0.895/0.893$ |
+| 17 | dla + V2-B jointP4 (MOS + pairs every 4th) | 140M | 7.13 | $\color{green}{\mathbf{0.911}}/\color{green}{\mathbf{0.910}}$ | $\color{blue}{\mathbf{0.868}}/0.834$ | $\color{blue}{\mathbf{0.901}}/0.897$ | $0.859/0.825$ | $0.843/0.832$ | $0.914/0.912$ | $0.918/0.911$ | $0.897/0.893$ |
 |  | *G. Native-resolution tube branch (128x128 native crops, every frame; frozen probe, step 51)* |  |  |  |  |  |  |  |  |  |  |
-| 42 | Tubes, raw VideoMAE-S | 24M | 2.60 | $(.689,\enspace .683)$ | $(.645,\enspace .595)$ | $(.722,\enspace .718)$ | $(.719,\enspace .694)$ | $(.416,\enspace .405)$ | $(.743,\enspace .734)$ | $(.760,\enspace .733)$ | $(.501,\enspace .487)$ |
-| 43 | Tubes, our Tube-MAE (synthetic) | 24M | 2.60 | $(.689,\enspace .690)$ | $(.601,\enspace .568)$ | $(.672,\enspace .665)$ | $(.693,\enspace .661)$ | $(.432,\enspace .428)$ | $(.671,\enspace .653)$ | $(.713,\enspace .720)$ | $(.482,\enspace .474)$ |
-| 44 | DINOv2-S raw + tubes raw | 49M | 5.36 | $(.845,\enspace .843)$ | $(.781,\enspace .747)$ | $(.830,\enspace .821)$ | $(.823,\enspace .799)$ | $(.662,\enspace .642)$ | $(.819,\enspace .808)$ | $(.815,\enspace .805)$ | $(.735,\enspace .732)$ |
-| 45 | DINOv2-S raw + tubes Tube-MAE | 49M | 5.36 | $(.853,\enspace .851)$ | $(.780,\enspace .752)$ | $(.812,\enspace .805)$ | $(.803,\enspace .777)$ | $(.666,\enspace .655)$ | $(.817,\enspace .803)$ | $(.817,\enspace .806)$ | $(.725,\enspace .720)$ |
-| 46 | dla + tubes raw | 78M | 7.95 | $(.895,\enspace .894)$ | $(.841,\enspace .806)$ | $(.887,\enspace .883)$ | $(.823,\enspace .790)$ | $(.838,\enspace .830)$ | $(.899,\enspace .900)$ | $(.887,\enspace .885)$ | $(.879,\enspace .873)$ |
-| 47 | dla + tubes Tube-MAE | 78M | 7.95 | $(.898,\enspace .897)$ | $(.848,\enspace .813)$ | $(.889,\enspace .887)$ | $(.832,\enspace .801)$ | $(.840,\enspace .831)$ | $(.900,\enspace .900)$ | $(.888,\enspace .883)$ | $(.875,\enspace .871)$ |
+| 42 | Tubes, raw VideoMAE-S | 24M | 2.60 | $0.689/0.683$ | $0.645/0.595$ | $0.722/0.718$ | $0.719/0.694$ | $0.416/0.405$ | $0.743/0.734$ | $0.760/0.733$ | $0.501/0.487$ |
+| 43 | Tubes, our Tube-MAE (synthetic) | 24M | 2.60 | $0.689/0.690$ | $0.601/0.568$ | $0.672/0.665$ | $0.693/0.661$ | $0.432/0.428$ | $0.671/0.653$ | $0.713/0.720$ | $0.482/0.474$ |
+| 44 | DINOv2-S raw + tubes raw | 49M | 5.36 | $0.845/0.843$ | $0.781/0.747$ | $0.830/0.821$ | $0.823/0.799$ | $0.662/0.642$ | $0.819/0.808$ | $0.815/0.805$ | $0.735/0.732$ |
+| 45 | DINOv2-S raw + tubes Tube-MAE | 49M | 5.36 | $0.853/0.851$ | $0.780/0.752$ | $0.812/0.805$ | $0.803/0.777$ | $0.666/0.655$ | $0.817/0.803$ | $0.817/0.806$ | $0.725/0.720$ |
+| 46 | dla + tubes raw | 78M | 7.95 | $0.895/0.894$ | $0.841/0.806$ | $0.887/0.883$ | $0.823/0.790$ | $0.838/0.830$ | $0.899/0.900$ | $0.887/0.885$ | $0.879/0.873$ |
+| 47 | dla + tubes Tube-MAE | 78M | 7.95 | $0.898/0.897$ | $0.848/0.813$ | $0.889/0.887$ | $0.832/0.801$ | $0.840/0.831$ | $0.900/0.900$ | $0.888/0.883$ | $0.875/0.871$ |
 |  | *F. Full model: DINOv2-S + V2-B + LSVQ fusion (step 46)* |  |  |  |  |  |  |  |  |  |  |
-| 32 | Full model frozen, public V2-B (v2b_fullraw) | 115M | 10.57 | $(.872,\enspace .869)$ | $(.824,\enspace .786)$ | $(.849,\enspace .843)$ | $(.829,\enspace .789)$ | $(.801,\enspace .794)$ | $(.880,\enspace .873)$ | $(.892,\enspace .863)$ | $(.872,\enspace .874)$ |
-| 18 | Model A frozen (V2-B syn llrd .75) | 115M | 10.57 | $(.875,\enspace .872)$ | $(.829,\enspace .792)$ | $(.850,\enspace .846)$ | $(.838,\enspace .795)$ | $(.791,\enspace .781)$ | $(.877,\enspace .873)$ | $(.901,\enspace .870)$ | $(.869,\enspace .874)$ |
-| 19 | Model B frozen (V2-B syn all-layer 2e-5) | 115M | 10.57 | $(.889,\enspace .888)$ | $(.844,\enspace .809)$ | $(.869,\enspace .867)$ | $(.838,\enspace .805)$ | $(.809,\enspace .797)$ | $(.891,\enspace .888)$ | $(.893,\enspace .892)$ | $(.882,\enspace .874)$ |
-| 33 | Full model frozen, V2-B MOS-only (v2b_fullmos) | 115M | 10.57 | $(.906,\enspace .906)$ | $(.860,\enspace .827)$ | $(.890,\enspace .885)$ | $(.856,\enspace .826)$ | $(.788,\enspace .770)$ | $(.915,\enspace .909)$ | $(.915,\enspace .905)$ | $(.887,\enspace .883)$ |
-| 34 | Full model frozen, V2-B joint (v2b_fulljoint) | 115M | 10.57 | $(.903,\enspace .902)$ | $(.862,\enspace .825)$ | $(.891,\enspace .885)$ | $(.862,\enspace .831)$ | $(.795,\enspace .780)$ | $(.911,\enspace .906)$ | $(.911,\enspace .906)$ | $(.881,\enspace .881)$ |
-| 35 | Model A frozen, ReLIQS fusion loss | 115M | 10.57 | $(.875,\enspace .872)$ | $(.829,\enspace .793)$ | $(.853,\enspace .848)$ | $(.830,\enspace .785)$ | $(.792,\enspace .780)$ | $(.880,\enspace .878)$ | $(.898,\enspace .869)$ | $(.867,\enspace .872)$ |
-| 36 | **Full model e2e, public V2-B (v2b_fullraw)** | 115M | 10.57 | $(.900,\enspace .898)$ | $(.854,\enspace .824)$ | $(.876,\enspace .871)$ | $(.854,\enspace .824)$ | $(.833,\enspace .826)$ | $(.905,\enspace .903)$ | $(.911,\enspace .893)$ | $(.895,\enspace .892)$ |
-| 20 | **Model A e2e** | 115M | 10.57 | $(.901,\enspace .899)$ | $(.860,\enspace .831)$ | $(.875,\enspace .871)$ | $(.852,\enspace .823)$ | $(.825,\enspace .818)$ | $(.906,\enspace .900)$ | $(.910,\enspace .893)$ | $(.893,\enspace .893)$ |
-| 37 | **Model B e2e** | 115M | 10.57 | $(.907,\enspace .906)$ | $(.867,\enspace .832)$ | $(.895,\enspace .894)$ | $(.851,\enspace .822)$ | $(.843,\enspace .831)$ | $(.921,\enspace .919)$ | $(.914,\enspace .907)$ | $(.901,\enspace .890)$ |
-| 38 | **Full model e2e, V2-B MOS-only (v2b_fullmos)** | 115M | 10.57 | $(.908,\enspace .908)$ | $(.865,\enspace \color{blue}{\mathbf{.835}})$ | $(.890,\enspace .885)$ | $(\color{blue}{\mathbf{.869}},\enspace \color{blue}{\mathbf{.845}})$ | $(.792,\enspace .775)$ | $(.918,\enspace .915)$ | $(\color{green}{\mathbf{.923}},\enspace \color{blue}{\mathbf{.914}})$ | $(.900,\enspace .897)$ |
-| 39 | **Full model e2e, V2-B joint (v2b_fulljoint)** | 115M | 10.57 | $(.908,\enspace .907)$ | $(.866,\enspace .831)$ | $(.899,\enspace .896)$ | $(.868,\enspace .837)$ | $(.797,\enspace .780)$ | $(\color{blue}{\mathbf{.924}},\enspace \color{blue}{\mathbf{.924}})$ | $(\color{blue}{\mathbf{.921}},\enspace \color{green}{\mathbf{.915}})$ | $(\color{blue}{\mathbf{.902}},\enspace \color{blue}{\mathbf{.900}})$ |
+| 32 | Full model frozen, public V2-B (v2b_fullraw) | 115M | 10.57 | $0.872/0.869$ | $0.824/0.786$ | $0.849/0.843$ | $0.829/0.789$ | $0.801/0.794$ | $0.880/0.873$ | $0.892/0.863$ | $0.872/0.874$ |
+| 18 | Model A frozen (V2-B syn llrd .75) | 115M | 10.57 | $0.875/0.872$ | $0.829/0.792$ | $0.850/0.846$ | $0.838/0.795$ | $0.791/0.781$ | $0.877/0.873$ | $0.901/0.870$ | $0.869/0.874$ |
+| 19 | Model B frozen (V2-B syn all-layer 2e-5) | 115M | 10.57 | $0.889/0.888$ | $0.844/0.809$ | $0.869/0.867$ | $0.838/0.805$ | $0.809/0.797$ | $0.891/0.888$ | $0.893/0.892$ | $0.882/0.874$ |
+| 33 | Full model frozen, V2-B MOS-only (v2b_fullmos) | 115M | 10.57 | $0.906/0.906$ | $0.860/0.827$ | $0.890/0.885$ | $0.856/0.826$ | $0.788/0.770$ | $0.915/0.909$ | $0.915/0.905$ | $0.887/0.883$ |
+| 34 | Full model frozen, V2-B joint (v2b_fulljoint) | 115M | 10.57 | $0.903/0.902$ | $0.862/0.825$ | $0.891/0.885$ | $0.862/0.831$ | $0.795/0.780$ | $0.911/0.906$ | $0.911/0.906$ | $0.881/0.881$ |
+| 35 | Model A frozen, ReLIQS fusion loss | 115M | 10.57 | $0.875/0.872$ | $0.829/0.793$ | $0.853/0.848$ | $0.830/0.785$ | $0.792/0.780$ | $0.880/0.878$ | $0.898/0.869$ | $0.867/0.872$ |
+| 36 | **Full model e2e, public V2-B (v2b_fullraw)** | 115M | 10.57 | $0.900/0.898$ | $0.854/0.824$ | $0.876/0.871$ | $0.854/0.824$ | $0.833/0.826$ | $0.905/0.903$ | $0.911/0.893$ | $0.895/0.892$ |
+| 20 | **Model A e2e** | 115M | 10.57 | $0.901/0.899$ | $0.860/0.831$ | $0.875/0.871$ | $0.852/0.823$ | $0.825/0.818$ | $0.906/0.900$ | $0.910/0.893$ | $0.893/0.893$ |
+| 37 | **Model B e2e** | 115M | 10.57 | $0.907/0.906$ | $0.867/0.832$ | $0.895/0.894$ | $0.851/0.822$ | $0.843/0.831$ | $0.921/0.919$ | $0.914/0.907$ | $0.901/0.890$ |
+| 38 | **Full model e2e, V2-B MOS-only (v2b_fullmos)** | 115M | 10.57 | $0.908/0.908$ | $0.865/\color{blue}{\mathbf{0.835}}$ | $0.890/0.885$ | $\color{blue}{\mathbf{0.869}}/\color{blue}{\mathbf{0.845}}$ | $0.792/0.775$ | $0.918/0.915$ | $\color{green}{\mathbf{0.923}}/\color{blue}{\mathbf{0.914}}$ | $0.900/0.897$ |
+| 39 | **Full model e2e, V2-B joint (v2b_fulljoint)** | 115M | 10.57 | $0.908/0.907$ | $0.866/0.831$ | $0.899/0.896$ | $0.868/0.837$ | $0.797/0.780$ | $\color{blue}{\mathbf{0.924}}/\color{blue}{\mathbf{0.924}}$ | $\color{blue}{\mathbf{0.921}}/\color{green}{\mathbf{0.915}}$ | $\color{blue}{\mathbf{0.902}}/\color{blue}{\mathbf{0.900}}$ |
 
 ## Each experiment
 
