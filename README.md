@@ -14,7 +14,7 @@
 >
 > **Study and visibility, 2026-11-02:** study MOS (zero-shot, Protocol A) and frame-drop visibility of the same models: [`results/STUDY_2026-11-02.md`](results/STUDY_2026-11-02.md). Priority now: public sets.
 >
-> **Correction 2026-11-02:** HFVQA Table 1 reports **PLCC / SRCC**; earlier versions of this report read it as SROCC / PLCC. §8.2, E10, E15 and the summary table are fixed.
+> **Correction 2026-11-02:** HFVQA Table 1 reports **(PLCC, SRCC)**; earlier versions of this report read it as (SROCC, PLCC). §8.2, E10, E15 and the summary table are fixed.
 
 > **Data-use rule:** the FrameDrop-VQA subjective study (1,823 videos, 35 contents, 4K60) is never used for training, tuning or checkpoint selection.
 > - The one exception: per-split fine-tuning, marked "trained" in the tables.
@@ -47,21 +47,21 @@ It is trained mostly from **label-free pair order** ("more drops / lower bitrate
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t01_dark.svg">
-  <img alt="1. Summary: table 1" src="figures/tables/t01_light.svg" width="847">
+  <img alt="1. Summary: table 1" src="figures/tables/t01_light.svg" width="854">
 </picture>
 
 <details><summary>table as text</summary>
 
-| Result (SROCC / PLCC) | Ours | Best baseline |
+| Result ((SROCC, PLCC)) | Ours | Best baseline |
 |---|---|---|
-| Study, **zero-shot** | **v4: .816 / .805** | UVQ1.5: .770 / .774 |
-| Study, frozen features + SVR (20 grouped splits) | v4, 3-scale: .845 / .842 | GAMIVAL: .886 / .884 |
-| Study, full fine-tune (20 grouped splits) | v3: .923 / .918 | not run for baselines (not matched) |
+| Study, **zero-shot** | **v4: (.816, .805)** | UVQ1.5: (.770, .774) |
+| Study, frozen features + SVR (20 grouped splits) | v4, 3-scale: (.845, .842) | GAMIVAL: (.886, .884) |
+| Study, full fine-tune (20 grouped splits) | v3: (.923, .918) | not run for baselines (not matched) |
 | Study, frame-drop visibility (AUC "noticed") | v4: .649 | FasterVQA .517; VLMs ≈ .50 |
-| KoNViD-1k / LIVE-VQC / YT-UGC, frozen features + SVR | .837 / .776 / .792 | TLVQM .773 / **.799** / .669 |
-| KoNViD-1k / LIVE-VQC / YT-UGC, full fine-tune | .848 / .821 / .829 | HFVQA .926 / .905 / .919 |
-| LSVQ test / 1080p, trained on LSVQ | v3: .851 / .726 | HFVQA .903 / .842 |
-| DropDev-hard, drop ordering (Q / V) | v4: .851 / .922 | n/a (benchmark is ours) |
+| KoNViD-1k / LIVE-VQC / YT-UGC, frozen features + SVR | (.837, .776) / .792 | TLVQM .773 / **.799** / .669 |
+| KoNViD-1k / LIVE-VQC / YT-UGC, full fine-tune | (.848, .821) / .829 | HFVQA (.926, .905) / .919 |
+| LSVQ test / 1080p, trained on LSVQ | v3: (.851, .726) | HFVQA (.903, .842) |
+| DropDev-hard, drop ordering (Q / V) | v4: (.851, .922) | n/a (benchmark is ours) |
 
 </details>
 
@@ -255,17 +255,17 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 ### E2: v2, add LSVQ MOS to the fusion (encoders frozen)
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t05_dark.svg">
-  <img alt="E2: v2, add LSVQ MOS to the fusion (encoders frozen): table 5" src="figures/tables/t05_light.svg" width="722">
+  <img alt="E2: v2, add LSVQ MOS to the fusion (encoders frozen): table 5" src="figures/tables/t05_light.svg" width="729">
 </picture>
 
 <details><summary>table as text</summary>
 
 | | v1 | **v2 (MOS + pairs)** | v2_mos_only |
 |---|---|---|---|
-| LSVQ test SROCC / PLCC | .296 / .334 | **.832 / .831** | .832 / .830 |
-| LSVQ 1080p | .405 / .479 | **.699 / .742** | .703 / .737 |
-| KoNViD-1k | .434 / .439 | **.816 / .812** | .814 / .810 |
-| Study (old MOS) | .640 / .635 | **.738 / .727** | .741 / .730 |
+| LSVQ test (SROCC, PLCC) | (.296, .334) | **(.832, .831)** | (.832, .830) |
+| LSVQ 1080p | (.405, .479) | **(.699, .742)** | (.703, .737) |
+| KoNViD-1k | (.434, .439) | **(.816, .812)** | (.814, .810) |
+| Study (old MOS) | (.640, .635) | **(.738, .727)** | (.741, .730) |
 | Study: consecutive drops ordered by Q | 94.6% | 88.3% | **75.2%** |
 
 </details>
@@ -274,7 +274,7 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 
 ### E3: v3, end-to-end fine-tune of all stages
 - **Public MOS:** about +.02 SROCC on every set: LSVQ test **.851**, 1080p **.726**, KoNViD **.838**.
-- **Study:** .745 on the old MOS, .767 / .757 on the current one.
+- **Study:** .745 on the old MOS, (.767, .757) on the current one.
 - **Drop ordering got worse** (study consecutive drops 88% → 82%).
 
 ### E4: DropDev benchmark and the v2-vs-v3 gate
@@ -309,13 +309,13 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 
 ### E7: d1, the full chain with a DINOv2-S Stage 1
 - **Development (LSVQ val10):** .843, against .831 for v2_90.
-- **Study zero-shot:** .773 / .763, the first result above UVQ1.5 on SROCC (eval 8).
+- **Study zero-shot:** (.773, .763), the first result above UVQ1.5 on SROCC (eval 8).
 - **Frozen features + regressor:** weaker (ridge .742).
 
 ### E8: Step 12 selection rule and ensemble
 - **The rule** was fixed before any number existed: best LSVQ val10, with a DropDev tie-break.
-- **Candidates (val10 / DropDev Q):** ens(d1, v3_90) **.853** / .973 *(selected)*; v3_90 .851 / .954; ens(d1, v2_90) .845 / .974; d1 .843 / .970; v2_90 .831 / .960.
-- **Selected ensemble on the study:** .768 / .758, below UVQ1.5 (eval 9).
+- **Candidates (val10 / DropDev Q):** ens(d1, v3_90) **.853** / .973 *(selected)*; v3_90 (.851, .954); ens(d1, v2_90) (.845, .974); d1 (.843, .970); v2_90 (.831, .960).
+- **Selected ensemble on the study:** (.768, .758), below UVQ1.5 (eval 9).
 - **Frozen-feature regressor on the ensemble's concatenated features:** .842. Each member alone gives .742 and .781 (eval 10).
 
 ### E9: does 10 fps sampling miss 60 fps drops? (model-free check)
@@ -325,21 +325,21 @@ Each block gives the question, what was done, and the result. **Bold** marks the
 ### E10: Step 14, full fine-tuning per dataset (HFVQA Protocol 2)
 Starting from v3: 70/10/20 splits, encoders frozen for 4 epochs, then all trained, 12 epochs; best validation epoch, then test once.
 
-All cells PLCC / SRCC (the order of HFVQA Table 1).
+All cells (PLCC, SRCC) (the order of HFVQA Table 1).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t07_dark.svg">
-  <img alt="E10: Step 14, full fine-tuning per dataset (HFVQA Protocol 2): table 7" src="figures/tables/t07_light.svg" width="700">
+  <img alt="E10: Step 14, full fine-tuning per dataset (HFVQA Protocol 2): table 7" src="figures/tables/t07_light.svg" width="727">
 </picture>
 
 <details><summary>table as text</summary>
 
 | Dataset (splits) | Ours v3 | HFVQA | DOVER | BVQA |
 |---|---|---|---|---|
-| KoNViD-1k (10) | .845 / .848 | .927 / .926 | .899 / .897 | .836 / .834 |
-| LIVE-VQC (10) | .834 / .821 | .915 / .905 | .852 / .812 | .842 / .831 |
-| YouTube-UGC (10) | .804 / .829 | .921 / .919 | .873 / .877 | .819 / .831 |
-| **Study (20, baselines' splits)** | **.918 / .923** | n/a | n/a | n/a |
+| KoNViD-1k (10) | (.845, .848) | (.927, .926) | (.899, .897) | (.836, .834) |
+| LIVE-VQC (10) | (.834, .821) | (.915, .905) | (.852, .812) | (.842, .831) |
+| YouTube-UGC (10) | (.804, .829) | (.921, .919) | (.873, .877) | (.819, .831) |
+| **Study (20, baselines' splits)** | **(.918, .923)** | n/a | n/a | n/a |
 
 </details>
 
@@ -348,19 +348,19 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 ### E11: v4, more MOS data (YouTube-UGC + LIVE-YT-Gaming)
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t08_dark.svg">
-  <img alt="E11: v4, more MOS data (YouTube-UGC + LIVE-YT-Gaming): table 8" src="figures/tables/t08_light.svg" width="717">
+  <img alt="E11: v4, more MOS data (YouTube-UGC + LIVE-YT-Gaming): table 8" src="figures/tables/t08_light.svg" width="732">
 </picture>
 
 <details><summary>table as text</summary>
 
 | | v3 | **v4** |
 |---|---|---|
-| YT-UGC split-0 test / Gaming val (in-domain) | .688 / .660 | **.792 / .693** |
-| LSVQ test / 1080p | **.851 / .726** | .843 / .714 |
-| KoNViD-1k / LIVE-VQC | **.838 / .699** | .829 / .664 |
-| DropDev-hard Q / V | .840 / .912 | **.851 / .922** (significant) |
-| **Study zero-shot SROCC / PLCC / RMSE** | .767 / .757 / .418 | **.816 / .805 / .380** |
-| Study, frozen features: ridge / SVR | .792 / .799 | **.838 / .827** |
+| YT-UGC split-0 test / Gaming val (in-domain) | (.688, .660) | **(.792, .693)** |
+| LSVQ test / 1080p | **(.851, .726)** | (.843, .714) |
+| KoNViD-1k / LIVE-VQC | **(.838, .699)** | (.829, .664) |
+| DropDev-hard Q / V | (.840, .912) | **(.851, .922)** (significant) |
+| **Study zero-shot (SROCC, PLCC) / RMSE** | (.767, .757) / .418 | **(.816, .805) / .380** |
+| Study, frozen features: ridge / SVR | (.792, .799) | **(.838, .827)** |
 
 </details>
 
@@ -381,14 +381,14 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 
 | Method | 4-class accuracy | Noticed vs not: accuracy / AUC | Clearly vs rest: accuracy / AUC |
 |---|---|---|---|
-| *Chance* | *.406* | *.623 / .500* | *.594 / .500* |
-| d1 | .482 | .624 / .626 | .677 / .609 |
-| v3 | .474 | .629 / .639 | .676 / .621 |
+| *Chance* | *.406* | *(.623, .500)* | *(.594, .500)* |
+| d1 | .482 | (.624, .626) | (.677, .609) |
+| v3 | .474 | (.629, .639) | (.676, .621) |
 | **v4** | .467 | .625 / **.649** | .674 / **.632** |
-| DOVER (quality score) | .419 | .626 / .513 | .588 / .558 |
-| FasterVQA (quality score) | .395 | .622 / .517 | .589 / .529 |
-| InternVL3-8B (direct answer) | .376 | .377 / .499 | .592 / .499 |
-| InternVideo3-8B (direct answer) | .227 | .552 / .493 | .529 / .485 |
+| DOVER (quality score) | .419 | (.626, .513) | (.588, .558) |
+| FasterVQA (quality score) | .395 | (.622, .517) | (.589, .529) |
+| InternVL3-8B (direct answer) | .376 | (.377, .499) | (.592, .499) |
+| InternVideo3-8B (direct answer) | .227 | (.552, .493) | (.529, .485) |
 
 </details>
 
@@ -396,7 +396,7 @@ On the study, this compares with GAMIVAL .886, but GAMIVAL only trains an SVR on
 - **The VLMs are blind to timing.** Their own control tests show this: a 100%-frozen or shuffled clip still gets "None noticeable".
 
 ### E13: our features + GAMIVAL scene-statistics features *(explored, then dropped)*
-Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; concatenated **.873 / .861**. **Dropped by decision:** results must come from our model alone, without hand-crafted features.
+Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; concatenated **(.873, .861)**. **Dropped by decision:** results must come from our model alone, without hand-crafted features.
 
 ### E14: multi-scale frozen features on the study (downscale inside the decode, no re-encode)
 <picture>
@@ -406,13 +406,13 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 
 <details><summary>table as text</summary>
 
-| Features (v4) | Ridge SROCC / PLCC | Grid-searched SVR SROCC / PLCC | Fixed SVR SROCC / PLCC |
+| Features (v4) | Ridge (SROCC, PLCC) | Grid-searched SVR (SROCC, PLCC) | Fixed SVR (SROCC, PLCC) |
 |---|---|---|---|
-| full (512) | .838 / .823 | .827 / .824 | .826 / .827 |
-| half (512) | .840 / .824 | .836 / .827 | .832 / .823 |
-| quarter (512) | .740 / .717 | .734 / .740 | .743 / .739 |
-| full + half (1024) | .838 / .827 | .844 / .841 | .846 / .841 |
-| **full + half + quarter (1536)** | **.844 / .835** | **.845 / .842** | **.848 / .842** |
+| full (512) | (.838, .823) | (.827, .824) | (.826, .827) |
+| half (512) | (.840, .824) | (.836, .827) | (.832, .823) |
+| quarter (512) | (.740, .717) | (.734, .740) | (.743, .739) |
+| full + half (1024) | (.838, .827) | (.844, .841) | (.846, .841) |
+| **full + half + quarter (1536)** | **(.844, .835)** | **(.845, .842)** | **(.848, .842)** |
 
 </details>
 
@@ -429,12 +429,12 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 
 | Dataset | Features | Ridge | Grid-searched SVR | Fixed SVR | TLVQM / VIDEVAL SRCC (features + SVR) |
 |---|---|---|---|---|---|
-| KoNViD-1k | native | .837 / .830 | .837 / .836 | .834 / .837 | .773 / .783 |
-| | native + half | **.838 / .835** | .832 / .834 | .834 / .835 | |
-| LIVE-VQC | native | .777 / .795 | .776 / .781 | .728 / .746 | **.799** / .752 |
-| | native + half | **.781 / .804** | .775 / .783 | .723 / .732 | |
-| YouTube-UGC | native | .758 / .748 | .759 / .742 | .753 / .734 | .669 / .779 |
-| | native + half | .778 / .757 | **.792 / .763** | **.792 / .766** | |
+| KoNViD-1k | native | (.837, .830) | (.837, .836) | (.834, .837) | (.773, .783) |
+| | native + half | **(.838, .835)** | (.832, .834) | (.834, .835) | |
+| LIVE-VQC | native | (.777, .795) | (.776, .781) | (.728, .746) | **.799** / .752 |
+| | native + half | **(.781, .804)** | (.775, .783) | (.723, .732) | |
+| YouTube-UGC | native | (.758, .748) | (.759, .742) | (.753, .734) | (.669, .779) |
+| | native + half | (.778, .757) | **(.792, .763)** | **(.792, .766)** | |
 
 </details>
 
@@ -457,11 +457,11 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 
 <details><summary>table as text</summary>
 
-| Pooling queries per head | LSVQ val10 SROCC / PLCC | DropDev Q / V | DropDev-hard Q | DropDev-hard V |
+| Pooling queries per head | LSVQ val10 (SROCC, PLCC) | DropDev Q / V | DropDev-hard Q | DropDev-hard V |
 |---|---|---|---|---|
-| 1 (original) | .831 / .831 | .964 / .985 | .846 | .897 |
-| 4 | .829 / .829 | **.968** / .989 | .855 (+.010 [.005, .015]) | .926 (+.030 [.026, .033]) |
-| **8** | .830 / .829 | .966 / **.990** | **.857 (+.013 [.008, .017])** | **.930 (+.034 [.030, .037])** |
+| 1 (original) | (.831, .831) | (.964, .985) | .846 | .897 |
+| 4 | (.829, .829) | **.968** / .989 | .855 (+.010 [.005, .015]) | .926 (+.030 [.026, .033]) |
+| **8** | (.830, .829) | .966 / **.990** | **.857 (+.013 [.008, .017])** | **.930 (+.034 [.030, .037])** |
 
 </details>
 
@@ -498,34 +498,34 @@ Run on 20 splits with SVR: v4 alone .827; GAMIVAL scene statistics alone .723; c
 | DOVER | zero-shot | .687 | .672 | .482 | .465 |
 | FAST-VQA | zero-shot | .645 | .643 | .454 | .490 |
 | nr-vqa-consumervideo | trained | .630 | .626 | .450 | .711 |
-| NIQE / BRISQUE | opinion-unaware | .596 / .558 | −.574 / −.567 | | |
+| NIQE / BRISQUE | opinion-unaware | (.596, .558) | −.574 / −.567 | | |
 | P.1204.3 | zero-shot | .255 | −.274 | | .620 |
-| InternVideo3-8B / InternVL3-8B | zero-shot | .232 / .169 | .194 / −.075 | | |
+| InternVideo3-8B / InternVL3-8B | zero-shot | (.232, .169) | .194 / −.075 | | |
 
 </details>
 
-### 8.2 Public sets, HFVQA Table 1 layout (PLCC / SRCC)
+### 8.2 Public sets, HFVQA Table 1 layout (PLCC, SRCC)
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/tables/t14_dark.svg">
-  <img alt="8.2 Public sets, HFVQA Table 1 layout (PLCC / SRCC): table 14" src="figures/tables/t14_light.svg" width="900">
+  <img alt="8.2 Public sets, HFVQA Table 1 layout (PLCC, SRCC): table 14" src="figures/tables/t14_light.svg" width="900">
 </picture>
 
 <details><summary>table as text</summary>
 
 | Method | LSVQ test | LSVQ 1080p | KoNViD x | LIVE-VQC x | KoNViD FT | LIVE-VQC FT | YT-UGC FT |
 |---|---|---|---|---|---|---|---|
-| TLVQM | .774 / .772 | .616 / .589 | .724 / .732 | .691 / .670 | .768 / .773 | .803 / .799 | .659 / .669 |
-| VIDEVAL | .783 / .794 | .554 / .545 | .741 / .751 | .640 / .630 | .780 / .783 | .751 / .752 | .773 / .779 |
-| BVQA | .854 / .852 | .782 / .771 | .837 / .834 | .824 / .816 | .836 / .834 | .842 / .831 | .819 / .831 |
-| FAST-VQA | .874 / .872 | .809 / .770 | .862 / .864 | **.841** / **.824** | .889 / .890 | **.852** / **.845** | .853 / .857 |
+| TLVQM | (.774, .772) | (.616, .589) | (.724, .732) | (.691, .670) | (.768, .773) | (.803, .799) | (.659, .669) |
+| VIDEVAL | (.783, .794) | (.554, .545) | (.741, .751) | (.640, .630) | (.780, .783) | (.751, .752) | (.773, .779) |
+| BVQA | (.854, .852) | (.782, .771) | (.837, .834) | (.824, .816) | (.836, .834) | (.842, .831) | (.819, .831) |
+| FAST-VQA | (.874, .872) | (.809, .770) | (.862, .864) | **.841** / **.824** | (.889, .890) | **.852** / **.845** | (.853, .857) |
 | DOVER | **.879** / **.881** | **.827** / **.782** | **.872** / **.871** | **.841** / .812 | **.899** / **.897** | **.852** / .812 | **.873** / **.877** |
 | HFVQA | **.906** / **.903** | **.873** / **.842** | **.891** / **.893** | **.862** / **.856** | **.927** / **.926** | **.915** / **.905** | **.921** / **.919** |
-| Ours v3¹ | .850 / .851 | .767 / .726 | .834 / .838 | .752 / .699 | .845 / .848 | .834 / .821 | .804 / .829 |
-| Ours v4² | .841 / .843 | .759 / .714 | .830 / .829 | .728 / .664 |  |  | n/a |
+| Ours v3¹ | (.850, .851) | (.767, .726) | (.834, .838) | (.752, .699) | (.845, .848) | (.834, .821) | (.804, .829) |
+| Ours v4² | (.841, .843) | (.759, .714) | (.830, .829) | (.728, .664) |  |  | n/a |
 
 </details>
 
-All cells are **PLCC / SRCC**, the order of HFVQA Table 1 (baseline rows copied from it). **Bold** = best and second best per column, PLCC and SRCC ranked separately. x = cross-dataset (trained on LSVQ only); FT = fine-tuned per dataset.
+All cells are **(PLCC, SRCC)**, the order of HFVQA Table 1 (baseline rows copied from it). **Bold** = best and second best per column, PLCC and SRCC ranked separately. x = cross-dataset (trained on LSVQ only); FT = fine-tuned per dataset.
 
 ¹ v3 is trained on LSVQ only. ² v4 also trained on YT-UGC and LIVE-YT-Gaming train splits, so it is not LSVQ-only.
 
@@ -541,12 +541,12 @@ Newer models (2026-11-02, DINOv2-S S1 and frame-drop training): [`results/PUBLIC
 
 | Model | DropDev (16,020 pairs) | DropDev-hard (15,496 pairs) |
 |---|---|---|
-| v1 | .966 / .989 | .854 / .925 |
-| v2 | .965 / .989 | .844 / .925 |
-| v2_mos_only | .942 / .985 | .787 / .898 |
-| v3 | .963 / .987 | .841 / .913 |
+| v1 | (.966, .989) | (.854, .925) |
+| v2 | (.965, .989) | (.844, .925) |
+| v2_mos_only | (.942, .985) | (.787, .898) |
+| v3 | (.963, .987) | (.841, .913) |
 | d1 | **.971** / .987 | **.875** / .910 |
-| **v4** | .964 / .988 | .851 / .922 |
+| **v4** | (.964, .988) | (.851, .922) |
 
 </details>
 
